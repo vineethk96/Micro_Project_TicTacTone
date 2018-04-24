@@ -328,6 +328,84 @@ int getLocation()
     return returnVal;
 }
 
+int checkCrossWin(gamestate_t *G)
+{
+    if(G->map[0] == cross)
+    {
+        if(G->map[1] == cross)          // top row
+            return 2;
+        else if(G->map[2] == cross)     // top row
+            return 1;
+        else if(G->map[4] == cross)     // diagonal
+            return 8;
+        else if(G->map[8] == cross)     // diagonal
+            return 4;
+        else if(G->map[3] == cross)     // first column
+            return 6;
+        else if(G->map[6] == cross)     // first column
+            return 3;
+    }
+    else if(G->map[1] == cross)
+    {
+        if(G->map[4] == cross)          // second column
+            return 7;
+        else if(G->map[7] == cross)     // second column
+            return 4;
+    }
+    else if(G->map[2] == cross)
+    {
+        if(G->map[5] == cross)          // third column
+            return 8;
+        else if(G->map[8] == cross)     // third column
+            return 5;
+        else if(G->map[4] == cross)     // anti diagonal
+            return 6;
+        else if(G->map[6] == cross)     // anti diagonal
+            return 4;
+        else if(G->map[1] == cross)     // top row
+            return 0;
+    }
+    else if(G->map[3] == cross)
+    {
+        if(G->map[6] == cross)          // first column
+            return 0;
+        else if(G->map[4] == cross)     // middle row
+            return 5;
+        else if(G->map[5] == cross)     // middle row
+            return 4;
+    }
+    else if(G->map[4] == cross)
+    {
+        if(G->map[5] == cross)          // middle row
+            return 3;
+        else if(G->map[6] == cross)     // diagonal
+            return 2;
+        else if(G->map[7] == cross)     // second column
+            return 1;
+        else if(G->map[8] == cross)     // anti diagonal
+            return 0;
+    }
+    else if(G->map[5] == cross)
+    {
+        if(G->map[8] == cross)          // third column
+            return 2;
+    }
+    else if(G->map[6] == cross)
+    {
+        if(G->map[7] == cross)          // bottom row
+            return 8;
+        else if(G->map[8] == cross)     // bottom row
+            return 7;
+    }
+    else if(G->map[7] == cross)
+    {
+        if(G->map[8] == cross)          // bottom row
+            return 6;
+    }
+
+    return 10;
+}
+
 int checkCircleWin(gamestate_t *G)
 {
     if(G->map[0] == circle)
@@ -410,7 +488,15 @@ void computerTurn(gamestate_t *G)
 {
     int loc;
 
-    loc = checkCircleWin(G);
+    if(checkCrossWin(G) == 10)
+    {
+        loc = checkCircleWin(G);        //blocks the user
+    }
+    else
+    {
+        loc = checkCrossWin(G);         //go for the win
+    }
+
 
     if(loc != 10)
     {

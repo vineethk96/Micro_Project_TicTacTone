@@ -45,7 +45,7 @@ int ButtonS1Pressed() {
             StartSWTimer(&S1bouncedelay);
             S = trans1;
         }
-        rval = true;
+        rval = false;
         break;
     case trans1:
         if (!b && SWTimerOneShotExpired(&S1bouncedelay))
