@@ -13,9 +13,12 @@
 void InitDisplay();
 void DrawTime   (unsigned minutes, unsigned seconds);
 void DrawMessage(char *s, uint32_t color);
+void DrawPower(char *s, uint32_t color);
 void DrawScore  (int computerscore, int humanscore, uint32_t color);
 void DrawBoard  (tcellstate map[9]);
 void DrawWinner (tcellstate map[9],int winner, uint32_t color);
+void DrawUnsigned (unsigned line, char prefix[4], unsigned n);
+
 
 
 #endif /* DISPLAY_H_ */

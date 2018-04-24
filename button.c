@@ -101,4 +101,3 @@ int ButtonS2Pressed() {
 
     return rval;
 }
-

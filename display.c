@@ -32,6 +32,11 @@ void DrawMessage(char *s, uint32_t color) {
     Graphics_drawStringCentered(&g_sContext, (int8_t *) s, -1, 64, 8, OPAQUE_TEXT);
 }
 
+void DrawPower(char *s, uint32_t color) {
+    Graphics_setForegroundColor(&g_sContext, color);
+    Graphics_drawStringCentered(&g_sContext, (int8_t *) s, -1, 64, 120, OPAQUE_TEXT);
+}
+
 void DrawScore(int computerscore, int humanscore, uint32_t color) {
     char buf[16] = "Score XX - XX ";
     buf[ 7] =  (char) ('0' + ( computerscore % 10));
@@ -111,5 +116,45 @@ void DrawWinner(tcellstate map[9], int winner, uint32_t color) {
         Graphics_drawStringCentered(&g_sContext, symbolMap[map[6]], -1,  32,  96, OPAQUE_TEXT);
         break;
     }
-
 }
+
+void DrawUnsigned(unsigned line, char prefix[4], unsigned n) {
+    char buf[8]    = "XXXXXXXX";
+    char hexstr[16] = "0123456789ABCDEF";
+
+    buf[0]  = hexstr[(n >> 28) & 0xF];
+    buf[1]  = hexstr[(n >> 24) & 0xF];
+    buf[2]  = hexstr[(n >> 20) & 0xF];
+    buf[3]  = hexstr[(n >> 16) & 0xF];
+    buf[4]  = hexstr[(n >> 12) & 0xF];
+    buf[5] = hexstr[(n >>  8) & 0xF];
+    buf[6] = hexstr[(n >>  4) & 0xF];
+    buf[7] = hexstr[(      n) & 0xF];
+    //Graphics_drawStringCentered(&g_sContext, (int8_t *) buf, 13, 64, 16 + (line - 1) * 16, OPAQUE_TEXT);
+
+    Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_YELLOW);
+    Graphics_drawStringCentered(&g_sContext, (int8_t *) buf, -1, 64, 120, OPAQUE_TEXT);
+}
+
+/*
+char convert2Hex(unsigned n)
+{
+    char buf[8]    = "XXXXXXXX";
+    char hexstr[16] = "0123456789ABCDEF";
+
+    DrawMessage("beforeCon", EMPHASISCOLOR);
+
+    buf[0]  = hexstr[(n >> 28) & 0xF];
+    buf[1]  = hexstr[(n >> 24) & 0xF];
+    buf[2]  = hexstr[(n >> 20) & 0xF];
+    buf[3]  = hexstr[(n >> 16) & 0xF];
+    buf[4]  = hexstr[(n >> 12) & 0xF];
+    buf[5] = hexstr[(n >>  8) & 0xF];
+    buf[6] = hexstr[(n >>  4) & 0xF];
+    buf[8] = hexstr[(      n) & 0xF];
+
+    DrawMessage("afterConv", EMPHASISCOLOR);
+
+    return buf;
+}
+*/

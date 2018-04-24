@@ -83,7 +83,7 @@ int Tie(tcellstate map[9]) {
             (CrossWins (map) == 0));
 }
 
-// This function resets map sate to empty
+// This function resets map state to empty
 void ClearMap(tcellstate map[9]) {
     map[0] = map[1] = map[2] = empty;
     map[3] = map[4] = map[5] = empty;
@@ -98,15 +98,15 @@ void AbortMap(tcellstate map[9]) {
 }
 
 // Adds symbol in a random empty location
-void  RandomAdd(tcellstate map[9], tcellstate v) {
+int  RandomAdd(tcellstate map[9], tcellstate v) {
    unsigned numempty = 0;
    unsigned done = 0;
-   unsigned i;
+   int i;
    for (i=0; i<9; i++)
        if (map[i] == empty)
            numempty++;
    if (numempty == 0)
-       return;
+       return 0;
    while (!done) {
        i = rand() % 9;
        if (map[i] == empty) {
@@ -114,11 +114,5 @@ void  RandomAdd(tcellstate map[9], tcellstate v) {
            done = 1;
        }
    }
+   return i;
 }
-
-
-
-
-
-
-
