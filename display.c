@@ -118,7 +118,7 @@ void DrawWinner(tcellstate map[9], int winner, uint32_t color) {
     }
 }
 
-void DrawUnsigned(unsigned line, char prefix[4], unsigned n) {
+void DrawUnsigned(unsigned n) {
     char buf[8]    = "XXXXXXXX";
     char hexstr[16] = "0123456789ABCDEF";
 

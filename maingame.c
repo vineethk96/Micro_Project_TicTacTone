@@ -161,17 +161,6 @@ void playNotes(int loc)
 }
 
 state_t ProcessIdle(int b1, int b2, int sec, int ms50, gamestate_t *G) {
-
-    // These are the states of a _local_ FSM.
-    // The state labels are prefixed with 'processidle' to
-    // make sure they are distinct from the labels used for the
-    // top-level FSM.
-    //
-    // The local FSM functionality plays a game of tic-tac-toe
-    // against itself, using randomized moves. However, the
-    // rules of tic-tac-toe are followed, including the game
-    // map drawing and coloring over the reference solution.
-
     typedef enum {processidle_idle,
                   processidle_playingcircle,
                   processidle_playingcross,
@@ -187,18 +176,6 @@ state_t ProcessIdle(int b1, int b2, int sec, int ms50, gamestate_t *G) {
     Graphics_drawStringCentered(&g_sContext, "          ", -1, 64, 120, OPAQUE_TEXT);
 
     //********************************************************************************
-
-    // We will run this local state machine only once per second,
-    // therefore, we only run it when sec is 1. sec is
-    // a software-timer generated in the main function.
-    //
-    // To add more functionality, you can extend this function. For example,
-    // to display a label every three seconds, you can add a counter that is
-    // incremented for every sec, modulo-3. When the counter is two, it means
-    // that the three-second timer mark is reached.
-    //
-    // A longer counter period (eg modulo-12 iso modulo-3) can be used to
-    // display rotating messages.
 
     if (sec) {
 
@@ -236,10 +213,6 @@ state_t ProcessIdle(int b1, int b2, int sec, int ms50, gamestate_t *G) {
               localstate = processidle_playingcircle;
               break;
             case processidle_playingcircle:
-              // This is circle who is playing. A circle is
-              // added in a random (but valid) location. Next,
-              // we check if the game ends, which happens when
-              // circle or cross would win, or when there's a tie.
 
               // Decide what position to play
               RandomAdd(G->map, circle);
@@ -256,10 +229,6 @@ state_t ProcessIdle(int b1, int b2, int sec, int ms50, gamestate_t *G) {
               break;
 
             case processidle_playingcross:
-              // This is cross who is playing. A cross is
-              // added in a random (but valid) location. Next,
-              // we check if the game ends, which happens when
-              // circle or cross would win, or when there's a tie.
 
               // Decide what position to play
               RandomAdd(G->map, cross);
@@ -276,10 +245,6 @@ state_t ProcessIdle(int b1, int b2, int sec, int ms50, gamestate_t *G) {
               break;
 
             case processidle_winning:
-              // This state is entered when there is a winner,
-              // or it's a tie. In this state, we redraw the
-              // winning combination in the emphasis color.
-              // After that, we go for the next round.
 
               if (w = CircleWins(G->map))
                 DrawWinner(G->map, w, EMPHASISCOLOR);
@@ -291,7 +256,6 @@ state_t ProcessIdle(int b1, int b2, int sec, int ms50, gamestate_t *G) {
               break;
         }
         totalSec++;
-
     }
 
     if(b1)

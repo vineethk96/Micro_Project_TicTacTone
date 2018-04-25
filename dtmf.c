@@ -83,13 +83,6 @@ void DTMFDisplay() {
     unsigned p1209 = PowerGoertzel( &t1209);
     unsigned p1336 = PowerGoertzel( &t1336);
     unsigned p1477 = PowerGoertzel( &t1477);
-
-    DrawUnsigned(1, " 697",  p697);
-    DrawUnsigned(2, " 770",  p770);
-    DrawUnsigned(3, " 852",  p852);
-    DrawUnsigned(4, "1209", p1209);
-    DrawUnsigned(5, "1336", p1336);
-    DrawUnsigned(6, "1477", p1477);
 }
 
 void DTMFPower()
@@ -102,9 +95,8 @@ void DTMFPower()
     unsigned p1477 = PowerGoertzel( &t1477);
 
     unsigned sum = p697 + p770 + p852 + p1209 + p1336 + p1477;
-    unsigned avg = sum / 6.0;
 
-    DrawUnsigned(0, "Power", sum);
+    DrawUnsigned(sum);
 }
 
 int DTMFlocation() {
